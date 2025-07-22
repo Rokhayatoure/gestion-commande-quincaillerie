@@ -21,7 +21,7 @@ const auth = require('../middlewares/Authmidlewarre'); // <-- AJOUTE CETTE LIGNE
  *               items:
  *                 $ref: '#/components/schemas/Categorie'
  */
-router.get('/', ctrl.getAll.bind(ctrl));
+router.get('/', auth.isAuthenticated, ctrl.getAll.bind(ctrl));
 
 /**
  * @swagger
@@ -46,7 +46,7 @@ router.get('/', ctrl.getAll.bind(ctrl));
  *       404:
  *         description: Catégorie non trouvée
  */
-router.get('/:id', ctrl.getById.bind(ctrl));
+router.get('/:id', auth.isAuthenticated, ctrl.getById.bind(ctrl));
 
 /**
  * @swagger

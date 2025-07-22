@@ -14,6 +14,13 @@ module.exports = (req, res, next) => {
     res.status(401).json({ error: 'Token invalide' });
   }
 };
+//middleware pour verifiet la connexion de l'utilisateur
+module.exports.isAuthenticated = (req, res, next) => {
+  if (!req.userId) {
+    return res.status(401).json({ error: 'Utilisateur non authentifié' });
+  }
+  next();
+};
 
 // Middleware pour vérifier le rôle gestionnaire
 module.exports.onlyGestionnaire = (req, res, next) => {

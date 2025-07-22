@@ -55,7 +55,7 @@ const auth = require('../middlewares/Authmidlewarre');
  *               items:
  *                 $ref: '#/components/schemas/SousCategorie'
  */
-router.get('/', ctrl.getAll);
+router.get('/', auth.isAuthenticated, ctrl.getAll);
 
 /**
  * @swagger
@@ -80,7 +80,7 @@ router.get('/', ctrl.getAll);
  *       404:
  *         description: Sous-catégorie non trouvée
  */
-router.get('/:id', ctrl.getById);
+router.get('/:id', auth.isAuthenticated, ctrl.getById);
 
 /**
  * @swagger
