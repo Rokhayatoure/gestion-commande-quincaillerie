@@ -13,13 +13,22 @@ module.exports = (req, res, next) => {
   } catch {
     res.status(401).json({ error: 'Token invalide' });
   }
+
+ 
 };
-//middleware pour verifiet la connexion de l'utilisateur
+// middleware pour verifiet la connexion de l'utilisateur
 module.exports.isAuthenticated = (req, res, next) => {
-  if (!req.userId) {
-    return res.status(401).json({ error: 'Utilisateur non authentifié' });
+  const auth = req.headers.authorization;
+  if (!auth) return res.status(401).json({ error: 'Token manquant' });
+  const token = auth.split(' ')[1];
+  try {
+    const payload = jwt.verify(token, process.env.JWT_SECRET);
+    req.userId = payload.userId;
+
+   } catch {
+    res.status(401).json({ error: 'user not auth' });
   }
-  next();
+ 
 };
 
 // Middleware pour vérifier le rôle gestionnaire

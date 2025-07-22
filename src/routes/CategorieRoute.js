@@ -46,7 +46,7 @@ router.get('/', auth.isAuthenticated, ctrl.getAll.bind(ctrl));
  *       404:
  *         description: Catégorie non trouvée
  */
-router.get('/:id', auth.isAuthenticated, ctrl.getById.bind(ctrl));
+router.get('/:id',  ctrl.getById.bind(ctrl));
 
 /**
  * @swagger
